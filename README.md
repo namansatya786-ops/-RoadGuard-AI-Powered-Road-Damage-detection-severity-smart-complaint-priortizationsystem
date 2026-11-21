@@ -1,0 +1,2 @@
+# -RoadGuard-AI-Powered-Road-Damage-detection-severity-smart-complaint-priortizationsystem
+AI-powered road damage detection, severity assessment, risk analysis, and smart complaint prioritization for safer roads using Machine Learning and Computer Vision.  Sug road-damage-detection artificial-intelligence machine-learning computer-vision deep-learning python opencv road-safety smart-city AI-project
