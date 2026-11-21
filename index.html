@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RoadGuard AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="/">RoadGuard <span>AI</span></a>
+    <div class="nav-links">
+      <a href="#report">Report Damage</a>
+      <a href="/dashboard">Admin Dashboard</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">SMART ROAD SAFETY</span>
+        <h1>Report road damage.<br><span>Get it fixed faster.</span></h1>
+        <p>Upload a road image and location. RoadGuard AI estimates damage severity and helps authorities prioritize urgent complaints.</p>
+        <a class="primary" href="#report">Submit a complaint</a>
+      </div>
+      <div class="hero-card">
+        <div class="radar"><div class="radar-dot"></div></div>
+        <div class="hero-stat"><strong>AI</strong><small>Damage analysis</small></div>
+      </div>
+    </section>
+
+    <section id="report" class="report-section">
+      <div class="section-heading">
+        <span class="eyebrow">COMPLAINT FORM</span>
+        <h2>Report a road hazard</h2>
+        <p>Share where the damage is, tell us how to reach you, then review your report.</p>
+      </div>
+      <form id="complaint-form" class="complaint-form" novalidate>
+        <div class="step-progress" aria-label="Complaint form progress">
+          <div class="step-progress-track"><span id="step-progress-fill"></span></div>
+          <div class="step-progress-labels">
+            <span class="step-label active" data-step-label="0"><b>1</b> Location & issue</span>
+            <span class="step-label" data-step-label="1"><b>2</b> Your details</span>
+            <span class="step-label" data-step-label="2"><b>3</b> Advanced details</span>
+            <span class="step-label" data-step-label="3"><b>4</b> Evidence & review</span>
+          </div>
+        </div>
+
+        <section class="form-step" data-step="0" aria-labelledby="step-one-title">
+          <div class="step-heading">
+            <span class="step-kicker">STEP 1 OF 4</span>
+            <h3 id="step-one-title">Where is the road damage?</h3>
+            <p>A nearby landmark helps the maintenance team find it quickly.</p>
+          </div>
+          <label>Location <span class="required-mark">*</span>
+            <input id="location" name="location" required maxlength="250" autocomplete="street-address" placeholder="Road name, landmark, area, city">
+          </label>
+          <div class="location-actions">
+            <button id="locate-button" class="text-button" type="button">◎ Use my current location</button>
+            <span id="location-message" class="field-hint" aria-live="polite"></span>
+          </div>
+          <input id="latitude" name="latitude" type="hidden">
+          <input id="longitude" name="longitude" type="hidden">
+          <label>Description <span class="optional-mark">OPTIONAL</span>
+            <textarea name="description" rows="4" maxlength="2000" placeholder="Describe the damage and any immediate safety risk"></textarea>
+          </label>
+          <div class="step-actions step-actions-end">
+            <button class="next-button" type="button" data-next>Continue <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="form-step" data-step="1" aria-labelledby="step-two-title" hidden>
+          <div class="step-heading">
+            <span class="step-kicker">STEP 2 OF 4</span>
+            <h3 id="step-two-title">How can we contact you?</h3>
+            <p>Your details are used only if the team needs more information.</p>
+          </div>
+          <div class="form-grid">
+            <label>Full name <span class="required-mark">*</span>
+              <input name="citizen_name" required maxlength="120" autocomplete="name" placeholder="Enter your name">
+            </label>
+            <label>Phone number <span class="optional-mark">OPTIONAL</span>
+              <input name="phone" type="tel" maxlength="40" autocomplete="tel" placeholder="+91 98765 43210">
+            </label>
+            <label class="form-grid-full">Email address <span class="optional-mark">OPTIONAL</span>
+              <input name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com">
+            </label>
+          </div>
+          <p class="field-hint">If you would like a reply, provide a phone number, an email address, or both.</p>
+          <div class="step-actions">
+            <button class="back-button" type="button" data-back>← Back</button>
+            <button class="next-button" type="button" data-next>Continue <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="form-step" data-step="2" aria-labelledby="step-three-title" hidden>
+          <div class="step-heading">
+            <span class="step-kicker">STEP 3 OF 4</span>
+            <h3 id="step-three-title">Add advanced road details</h3>
+            <p>These details help the maintenance team judge urgency and impact.</p>
+          </div>
+          <div class="form-grid">
+            <label>Reported hazard type
+              <select name="hazard_type">
+                <option value="">Select hazard type</option>
+                <option>Pothole</option>
+                <option>Surface crack</option>
+                <option>Road subsidence</option>
+                <option>Open manhole</option>
+                <option>Broken barrier</option>
+                <option>Flooded road</option>
+                <option>Debris or obstruction</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label>Road type
+              <select name="road_type">
+                <option value="">Select road type</option>
+                <option>National highway</option>
+                <option>State highway</option>
+                <option>City road</option>
+                <option>Residential street</option>
+                <option>Service road</option>
+                <option>Bridge or flyover</option>
+              </select>
+            </label>
+            <label>Traffic impact
+              <select name="traffic_impact">
+                <option value="">Select traffic impact</option>
+                <option>None</option>
+                <option>Minor slowdown</option>
+                <option>Single-lane blockage</option>
+                <option>Road fully blocked</option>
+              </select>
+            </label>
+            <label>Immediate safety risk
+              <select name="safety_risk">
+                <option value="">Select safety risk</option>
+                <option>Low</option>
+                <option>Moderate</option>
+                <option>High</option>
+                <option>Immediate danger</option>
+              </select>
+            </label>
+            <label>Damage observed at
+              <input name="observed_at" type="datetime-local">
+            </label>
+            <label>Estimated affected area
+              <select name="affected_area">
+                <option value="">Select affected area</option>
+                <option>Less than 1 square metre</option>
+                <option>1-5 square metres</option>
+                <option>5-20 square metres</option>
+                <option>More than 20 square metres</option>
+              </select>
+            </label>
+          </div>
+          <div class="step-actions">
+            <button class="back-button" type="button" data-back>← Back</button>
+            <button class="next-button" type="button" data-next>Continue <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="form-step" data-step="3" aria-labelledby="step-four-title" hidden>
+          <div class="step-heading">
+            <span class="step-kicker">STEP 4 OF 4</span>
+            <h3 id="step-four-title">Add a photo and review</h3>
+            <p>A clear photo helps estimate severity. Photo upload is optional.</p>
+          </div>
+          <label class="upload-box" id="upload-box">
+            <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp">
+            <span class="upload-icon">+</span>
+            <strong id="upload-title">Choose a road damage photo</strong>
+            <small>JPG, PNG or WEBP · maximum 10 MB</small>
+            <img id="preview" alt="Selected road damage photo preview">
+          </label>
+          <div class="review-card">
+            <h4>Report summary</h4>
+            <p><span>Location</span><strong id="review-location">Not provided</strong></p>
+            <p><span>Reported by</span><strong id="review-name">Not provided</strong></p>
+            <p><span>Contact</span><strong id="review-contact">Not provided</strong></p>
+            <p><span>Hazard</span><strong id="review-hazard">Not specified</strong></p>
+            <p><span>Traffic impact</span><strong id="review-traffic">Not specified</strong></p>
+            <p><span>Safety risk</span><strong id="review-risk">Not specified</strong></p>
+          </div>
+          <p class="review-note">AI severity and priority are estimates. A field inspection may be needed.</p>
+          <div class="step-actions">
+            <button class="back-button" type="button" data-back>← Back</button>
+            <button class="submit-button" type="submit">Analyze & submit report</button>
+          </div>
+        </section>
+        <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
